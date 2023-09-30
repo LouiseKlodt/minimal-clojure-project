@@ -10,11 +10,21 @@ Template for a minimal Clojure project setup.
 
 FIXME: explanation
 
-    $ java -jar minimal-clojure-project-0.1.0-standalone.jar [args]
+    $ lein run
 
-## Examples
+### Linting
 
-...
+To run Eastwood with the default set of lint warnings on all of the Clojure files under `src` and `test` , 
+use the command:
+```agsl
+lein eastwood
+```
+
+### Test Coverage
+
+```agsl
+lein cloverage
+```
 
 ### Bugs
 
