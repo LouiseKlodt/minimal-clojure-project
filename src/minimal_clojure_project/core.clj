@@ -27,12 +27,17 @@
                                :timeout 1000})
                  :chan (a/chan)}]
     (a/go-loop [i 0]
-      (let [[_v _ch] (a/alts! [(:chan manager)
-                               (a/timeout (:timeout (get-token manager)))])
+      (let [[v ch] (a/alts! [(:chan manager)
+                             (a/timeout (:timeout (get-token manager)))])
             token (refresh-token! manager)]
         (println {:i i :token token})
-        (recur (inc i))))
+        (when-not (and (= (:chan manager) ch)
+                       (nil? v))
+          (recur (inc i)))))
     manager))
+
+(defn stop-manager [manager]
+  (a/close! (:chan manager)))
 
 
 
@@ -50,6 +55,8 @@
   ;
 
   (def manager (create-manager))
+
+  (stop-manager manager)
 
   (force-refresh! manager)
 
