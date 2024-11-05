@@ -22,6 +22,7 @@
 (defn force-refresh! [manager]
   (>!! (:chan manager) "trigger alts!"))
 
+;; start component
 (defn create-manager []
   (let [manager {:token (atom {:value ""
                                :timeout 1000})
@@ -36,6 +37,7 @@
           (recur (inc i)))))
     manager))
 
+;; stop component
 (defn stop-manager [manager]
   (a/close! (:chan manager)))
 
