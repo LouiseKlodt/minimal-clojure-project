@@ -7,12 +7,10 @@
   {:value (str (rand-int 10000))
    :timeout (+ 1000 (* 1000 (rand-int 5)))})
 
-
 (defn refresh-token! [manager]
   (let [token (fetch-new-token! manager)]
     (reset! (:token manager) token)
     token))
-
 
 ;; API
 
@@ -40,11 +38,6 @@
 ;; stop component
 (defn stop-manager [manager]
   (a/close! (:chan manager)))
-
-
-
-
-
 
 (comment
   ; requirements:
@@ -100,14 +93,6 @@
           token (refresh-token! manager)]
       (println {:i i :token token})
       (recur (inc i))))
-
-
-
-
-
-
-
-
 
 
 
